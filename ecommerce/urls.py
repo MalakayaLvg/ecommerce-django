@@ -18,11 +18,15 @@ from xml.etree.ElementInclude import include
 
 from django.contrib import admin
 from django.urls import path, include
+from website import views
 
 urlpatterns = [
     path('', include("website.urls")),
     path('admin/', admin.site.urls),
     path('account/', include("django.contrib.auth.urls")),
+    path('account/signup', views.sign_up, name="signup"),
+    path('account/logout', views.logout_view, name="logout"),
+
 
 
 ]
