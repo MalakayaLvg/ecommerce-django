@@ -2,7 +2,12 @@
 {% block body %}
 
     <div class="form-control my-4 d-flex">
-        <div><img src="https://via.placeholder.com/300" class="img-fluid" alt="Produit"></div>
+        {% if product.image %}
+        <div><img src="{{ product.image.url }}" class="img-fluid" alt="Produit" style="height: 40vh; object-fit: cover;"></div>
+        {% else %}
+            no image
+        {% endif %}
+
         <div class="mx-4">
             <h5 class="card-title">{{ product.title }}</h5>
             <p class="card-text">{{ product.description }}</p>
@@ -23,7 +28,7 @@
                 <p>{{ comment.content }}</p>
                 <h6>note : {{ comment.rate }} / 5</h6>
                 <div>
-                    <a href="{% url 'comment_delete' comment.id %}"><i class="bi bi-trash"></i></a>
+                    <a href="{% url 'comment_delete' comment.id %}">delete<i class="bi bi-trash"></i></a>
                 </div>
             </div>
             {% endfor %}

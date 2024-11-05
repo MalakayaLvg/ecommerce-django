@@ -8,7 +8,11 @@
             {% for product in products %}
             <div class="col">
                 <div class="card" style="width: 18rem;">
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Produit">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="oui" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        no image
+                    {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ product.title }}</h5>
                         <p class="card-text">{{ product.description }}</p>
