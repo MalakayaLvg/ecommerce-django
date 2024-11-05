@@ -1,7 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, get_object_or_404, redirect
 
-from website.models import Product
+from website.forms import CommentForm
+from website.models import Product, Comment
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
@@ -62,5 +63,29 @@ def products(request):
 
 def product_show(request,product_id):
     product = get_object_or_404(Product,pk=product_id)
-    context = {"product":product}
-    return render(request,"product/show.html",context)
+    comments = product.comments.all()
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                comment = form.save(commit=False)
+                comment.user = request.user
+                comment.product = product
+                form.save()
+                return redirect("product_show",product_id)
+        else:
+            return redirect("login")
+    else:
+        form = CommentForm()
+        context = {"product":product,"form":form,"comments":comments}
+        return render(request,"product/show.html",context)
+
+def comment_delete(request,comment_id):
+    if request.user.is_authenticated:
+        comment = get_object_or_404(Comment,pk=comment_id)
+        comment.delete()
+        return redirect("product_show",comment.product_id)
+    else:
+        return redirect("login")
+
+

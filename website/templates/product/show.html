@@ -16,29 +16,32 @@
     <div class="container mt-5">
         <h2 class="mb-4">Avis des clients</h2>
         <div class="list-group">
+            {% if product.comments.exists %}
+            {% for comment in comments %}
             <div class="list-group-item">
-                <h5>Jean Dupont</h5>
-                <p>"Produit de qualité, très satisfait de mon achat."</p>
+                <h5>{{ comment.user.username }}</h5>
+                <p>{{ comment.content }}</p>
+                <h6>note : {{ comment.rate }} / 5</h6>
+                <div>
+                    <a href="{% url 'comment_delete' comment.id %}"><i class="bi bi-trash"></i></a>
+                </div>
             </div>
-            <div class="list-group-item">
-                <h5>Marie Curie</h5>
-                <p>"Livraison rapide et service client excellent."</p>
-            </div>
-            <div class="list-group-item">
-                <h5>Lucas Martin</h5>
-                <p>"Bon rapport qualité/prix, je recommande !"</p>
-            </div>
+            {% endfor %}
+            {% else %}
+                <h5>Pas de commentaires pour ce produit</h5>
+            {% endif %}
         </div>
     </div>
 
     <div class="container mt-5">
         <h2 class="mb-4">Commentaires</h2>
-        <form>
-            <div class="mb-3">
-                <label for="commentaire" class="form-label">Laissez un commentaire</label>
-                <textarea class="form-control" id="commentaire" rows="3"></textarea>
+        <form method="POST">
+        {% csrf_token %}
+            <div class="d-flex flex-column">
+            {{ form }}
+                <div><button type="submit" class="btn btn-primary">Soumettre</button></div>
+
             </div>
-            <button type="submit" class="btn btn-primary">Soumettre</button>
         </form>
     </div>
 
