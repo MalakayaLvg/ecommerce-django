@@ -1,0 +1,26 @@
+{% extends "website/index.html" %}
+
+{% block body %}
+
+    <div class="container">
+        <h2 class="mb-4">Produits populaires</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for product in products %}
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Produit">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.title }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <div class="mb-2">
+                            <small class="text-muted">({{ product.rate }}/5)</small>
+                        </div>
+                        <a href="{% url "product_show" product.id %}" class="btn btn-primary">Voir</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

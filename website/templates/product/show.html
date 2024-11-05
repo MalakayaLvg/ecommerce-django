@@ -1,0 +1,46 @@
+{% extends "website/index.html" %}
+{% block body %}
+
+    <div class="form-control my-4 d-flex">
+        <div><img src="https://via.placeholder.com/300" class="img-fluid" alt="Produit"></div>
+        <div class="mx-4">
+            <h5 class="card-title">{{ product.title }}</h5>
+            <p class="card-text">{{ product.description }}</p>
+            <div class="mb-2">
+                <small class="text-muted">({{ product.rate }}/5)</small>
+            </div>
+            <a href="{% url "product_show" product.id %}" class="btn btn-warning">Acheter</a>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Avis des clients</h2>
+        <div class="list-group">
+            <div class="list-group-item">
+                <h5>Jean Dupont</h5>
+                <p>"Produit de qualité, très satisfait de mon achat."</p>
+            </div>
+            <div class="list-group-item">
+                <h5>Marie Curie</h5>
+                <p>"Livraison rapide et service client excellent."</p>
+            </div>
+            <div class="list-group-item">
+                <h5>Lucas Martin</h5>
+                <p>"Bon rapport qualité/prix, je recommande !"</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Commentaires</h2>
+        <form>
+            <div class="mb-3">
+                <label for="commentaire" class="form-label">Laissez un commentaire</label>
+                <textarea class="form-control" id="commentaire" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Soumettre</button>
+        </form>
+    </div>
+
+
+{% endblock %}
