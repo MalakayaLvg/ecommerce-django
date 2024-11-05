@@ -1,0 +1,32 @@
+{% extends "website/index.html" %}
+{% block body %}
+
+    <h2>Votre panier</h2>
+    <table class="table">
+        <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Total Price</th>
+            <th scope="col">Action</th>
+        </tr>
+    {% for item in items %}
+        <tr>
+            <th scope="col">{{ item.product.title }}</th>
+            <th scope="col">{{ item.quantity}}</th>
+            <th scope="col">{{ item.product.price  }} €</th>
+            <th scope="col">{{ item.get_total_price }} €</th>
+            <th scope="col"><a class="btn btn-danger" href="{% url 'remove_from_cart' item.id %}">Supprimer</a></th>
+        </tr>
+
+    {% endfor %}
+    </table>
+    <hr>
+    <div class="d-flex align-items-center">
+    <p><strong>Total: {{ total_amount }} €</strong></p>
+    <a class="btn btn-primary mx-4" href="{% url 'checkout' %}">Procéder au paiement</a>
+    </div>
+
+
+
+{% endblock %}
